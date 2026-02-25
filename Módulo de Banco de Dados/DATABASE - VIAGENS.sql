@@ -89,3 +89,24 @@ INSERT INTO Reservas
 (NULL, 3, 3, '2026-03-12', 9800.99, 'Confirmada'),
 (NULL, 4, 2, '2026-04-20', 3200.75, 'Cancelada'),
 (NULL, 5, 5, '2026-05-15', 7600.00, 'Pendente');
+
+
+/* Consultas */
+SELECT * FROM Usuarios US
+INNER JOIN Reservas RS ON US.ID_Usuario = RS.ID_FK_Usuario
+INNER JOIN Destinos DS ON DS.ID_Destino = RS.ID_FK_Destino;
+
+SELECT COUNT(*) AS Total_Usuarios FROM Usuarios;
+
+SELECT MAX(TIMESTAMPDIFF(YEAR, Data_nascimeto, CURRENT_DATE()) ) AS Maior_idade FROM Usuarios;
+
+SELECT COUNT(*), ID_FK_Destino FROM Reservas GROUP BY ID_FK_Destino;
+
+SELECT COUNT(*) AS 	QTD_RESERVAS, ID_FK_Destino FROM Reservas
+GROUP BY ID_FK_Destino ORDER BY QTD_RESERVAS DESC;
+
+/* UTILIZANDO PLANO DE EXECUÇÃO */
+EXPLAIN
+	SELECT * FROM Usuarios WHERE Nome = "João";
+    
+CREATE INDEX IDX_nome ON Usuarios (Nome);
