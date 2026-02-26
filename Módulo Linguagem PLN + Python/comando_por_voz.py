@@ -1,4 +1,6 @@
 import speech_recognition as sr
+import webbrowser
+import winsound
 import os
 
 #Função para ouvir e reconhecer a fala de um usuário
@@ -20,25 +22,25 @@ def ouvir_microfone():
         try:
             #Passa a variável para o algoritmo reconhecer o padrão
             frase = microfone.recognize_google(audio, language="pt-BR")
+            frase = frase.lower()
 
             if "navegador" in frase:
-                os.system("start Chrome.exe")
+                webbrowser.open("https://www.google.com")
                 return False
             elif "youtube" in frase:
-                os.system("start Youtube.exe")
+                webbrowser.open("https://www.youtube.com")                
                 return False
-            elif "PowerPoint" in frase:
-                os.system("start POWERPNT.exe")
+            elif "tocar música 1" in frase:
+                webbrowser.open("https://www.youtube.com/watch?v=fSHoePrnmMw")
                 return False
-            elif "Edge" in frase:
-                os.system("start msedge.exe")
-                return False
-            elif "Fechar" in frase:
-                os.system("exit")
+            elif "Parar" in frase:
+                winsound.Beep(440, 1000)
+                print("Saindo...")
                 return True
 
         except sr.UnknownValueError:
             print("Fala não reconhecida")
+            winsound.Beep(440, 1000)
 
 
 while True:
